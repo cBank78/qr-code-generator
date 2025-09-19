@@ -150,14 +150,20 @@ class QRCodeGenerator {
 
     document.getElementById('add-to-queue').addEventListener('click', () => {
       const split = document.getElementById('split-lines')?.checked;
+      console.log('Split lines checked:', split, 'Current type:', this.currentType);
+      
       if (split && (this.currentType === 'text' || this.currentType === 'url')) {
         const area = this.currentType === 'text' ? document.getElementById('text-input') : document.getElementById('url-input');
         const raw = (area?.value) || '';
+        console.log('Raw input:', raw);
+        
         const lines = raw.split(/\r?\n/).filter(line => line.trim() !== '');
+        console.log('Split lines:', lines);
         
         // Add all non-empty lines to queue
         lines.forEach((line, index) => {
           const data = line.trim();
+          console.log('Adding line to queue:', data);
           this.queue.push({
             id: Date.now() + Math.random() + index,
             type: this.currentType,
@@ -448,7 +454,7 @@ class QRCodeGenerator {
         (it) =>
           `<div class='queue-item' data-id='${it.id}'>` +
           `<div class='queue-item-info'>` +
-          `<div class='queue-item-title'>${(it.settings?.symbology || 'qrcode').toUpperCase()}</div>` +
+          `<div class='queue-item-title'>${it.data || (it.settings?.symbology || 'qrcode').toUpperCase()}</div>` +
           `<div class='queue-item-details'>${it.timestamp}</div>` +
           `</div>` +
           `<div class='queue-item-actions'><button class='btn' onclick='qrGenerator.downloadItem(${it.id})'>Download</button></div>` +
