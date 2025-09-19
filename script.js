@@ -149,16 +149,20 @@ class QRCodeGenerator {
     });
 
     document.getElementById('add-to-queue').addEventListener('click', () => {
-      const split = document.getElementById('split-lines')?.checked;
+      const splitCheckbox = document.getElementById('split-lines');
+      const split = splitCheckbox?.checked;
+      console.log('Split lines checkbox found:', !!splitCheckbox);
       console.log('Split lines checked:', split, 'Current type:', this.currentType);
       
       if (split && (this.currentType === 'text' || this.currentType === 'url')) {
+        console.log('Entering split lines logic');
         const area = this.currentType === 'text' ? document.getElementById('text-input') : document.getElementById('url-input');
         const raw = (area?.value) || '';
         console.log('Raw input:', raw);
         
         const lines = raw.split(/\r?\n/).filter(line => line.trim() !== '');
         console.log('Split lines:', lines);
+        console.log('Number of lines to add:', lines.length);
         
         // Add all non-empty lines to queue
         lines.forEach((line, index) => {
@@ -172,9 +176,12 @@ class QRCodeGenerator {
             settings: { ...this.currentSettings, symbology: this.currentSymbology },
           });
         });
+        console.log('Queue length after adding:', this.queue.length);
         this.updateQueue();
         return;
       }
+      
+      console.log('Using single item logic');
       const data = this.getQRData();
       if (!data) return;
       this.queue.push({
