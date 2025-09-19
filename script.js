@@ -149,7 +149,6 @@ class QRCodeGenerator {
     });
 
     document.getElementById('add-to-queue').addEventListener('click', () => {
-      alert('Add to queue clicked!'); // Debug alert
       const splitCheckbox = document.getElementById('split-lines');
       const split = splitCheckbox?.checked;
       console.log('Split lines checkbox found:', !!splitCheckbox);
