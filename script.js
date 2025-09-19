@@ -459,7 +459,7 @@ class QRCodeGenerator {
     const data = this.getQRData();
     if (!data) return;
     const canvas = await this.makeCode(data, { ...this.currentSettings, symbology: this.currentSymbology });
-    const name = this.makeFileName(this.currentSymbology);
+    const name = this.makeFileName(this.currentSymbology, null, data);
     this.saveCanvas(canvas, name);
   }
 
@@ -467,7 +467,7 @@ class QRCodeGenerator {
     const it = this.queue.find((x) => x.id === id);
     if (!it) return;
     const canvas = await this.makeCode(it.data, it.settings);
-    const name = this.makeFileName(it.settings?.symbology || 'qrcode', id);
+    const name = this.makeFileName(it.settings?.symbology || 'qrcode', id, it.data);
     this.saveCanvas(canvas, name);
   }
 
@@ -478,7 +478,7 @@ class QRCodeGenerator {
       const it = this.queue[i];
       const canvas = await this.makeCode(it.data, it.settings);
       const blob = await new Promise((r) => canvas.toBlob(r, 'image/png'));
-      const name = this.makeFileName(it.settings?.symbology || 'qrcode', it.id);
+      const name = this.makeFileName(it.settings?.symbology || 'qrcode', it.id, it.data);
       zip.file(name, blob);
     }
     const out = await zip.generateAsync({ type: 'blob' });
@@ -489,8 +489,11 @@ class QRCodeGenerator {
     URL.revokeObjectURL(a.href);
   }
 
-  makeFileName(type, id) {
+  makeFileName(type, id, content) {
     const safe = (s) => String(s || '').replace(/[^a-z0-9-_]/gi, '-').toLowerCase();
+    if (content) {
+      return `${safe(content)}.png`;
+    }
     return `qr-${safe(type)}-${id || Date.now()}.png`;
   }
 
