@@ -153,16 +153,18 @@ class QRCodeGenerator {
       if (split && (this.currentType === 'text' || this.currentType === 'url')) {
         const area = this.currentType === 'text' ? document.getElementById('text-input') : document.getElementById('url-input');
         const raw = (area?.value) || '';
-        const lines = raw.split(/\r?\n/);
-        const idx = Math.min(this.currentLineIndex, lines.length - 1);
-        const current = (lines[idx] || '').trim();
-        const data = current;
-        this.queue.push({
-          id: Date.now() + Math.random(),
-          type: this.currentType,
-          data,
-          timestamp: new Date().toLocaleString(),
-          settings: { ...this.currentSettings, symbology: this.currentSymbology },
+        const lines = raw.split(/\r?\n/).filter(line => line.trim() !== '');
+        
+        // Add all non-empty lines to queue
+        lines.forEach((line, index) => {
+          const data = line.trim();
+          this.queue.push({
+            id: Date.now() + Math.random() + index,
+            type: this.currentType,
+            data,
+            timestamp: new Date().toLocaleString(),
+            settings: { ...this.currentSettings, symbology: this.currentSymbology },
+          });
         });
         this.updateQueue();
         return;
@@ -492,7 +494,9 @@ class QRCodeGenerator {
   makeFileName(type, id, content) {
     const safe = (s) => String(s || '').replace(/[^a-z0-9-_]/gi, '-').toLowerCase();
     if (content) {
-      return `${safe(content)}.png`;
+      const filename = `${safe(content)}.png`;
+      console.log('Generated filename:', filename, 'from content:', content);
+      return filename;
     }
     return `qr-${safe(type)}-${id || Date.now()}.png`;
   }
