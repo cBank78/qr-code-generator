@@ -1,0 +1,141 @@
+﻿/* Professional theme */
+:root{--bg:#0e1324;--card:#0f172a;--panel:#0f172a;--accent:#6366f1;--accent-strong:#4f46e5;--text:#f3f4f6;--muted:#cbd5e1;--border:#233042;--input:#111827;--success:#22c55e;--danger:#ef4444}
+:root.light{--bg:#f6f8fb;--card:#ffffff;--panel:#ffffff;--accent:#4f46e5;--accent-strong:#4f46e5;--text:#0f172a;--muted:#475569;--border:#e5e7eb;--input:#ffffff;--success:#16a34a;--danger:#dc2626}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:Inter, Segoe UI, Tahoma, Arial, sans-serif;background:var(--bg);color:var(--text);margin:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+.container{max-width:1240px;margin:0 auto;padding:24px}
+
+.header{background:linear-gradient(135deg,rgba(79,70,229,.25),rgba(99,102,241,.12));color:var(--text);border:1px solid var(--border);border-radius:16px;padding:24px 24px;margin-bottom:24px}
+:root.light .header{background:#ffffff}
+.header h1{margin:0 0 6px;font-weight:700;letter-spacing:.2px}
+.header p{margin:0;color:var(--muted)}
+
+.main-content{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+.left-panel,.right-panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px}
+
+.panel-section{border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px}
+.panel-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+
+.qr-type-selector{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.type-btn{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--input);color:var(--text);cursor:pointer;transition:all .15s ease;font-weight:600}
+.type-btn:hover{transform:translateY(-1px);border-color:#3a4a64}
+.type-btn.active{background:var(--accent-strong);color:#fff;border-color:var(--accent-strong);box-shadow:0 6px 18px rgba(79,70,229,.35)}
+:root.light .type-btn.active{background:#4f46e5;color:#fff}
+
+.input-group,.control-group{margin-bottom:14px}
+.input-group label,.control-group label{display:block;margin-bottom:8px;color:var(--muted);font-size:.94rem}
+.input-group input,.input-group textarea,.control-group input,.control-group select,.control-group textarea{width:100%;background:var(--input);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:12px 12px;font-size:1rem;outline:none;transition:border-color .15s ease}
+.input-group textarea,.control-group textarea{min-height:110px;resize:vertical}
+.control-group select{appearance:none}
+.input-group input:focus,.input-group textarea:focus,.control-group input:focus,.control-group select:focus,.control-group textarea:focus{border-color:#556b8d}
+
+/* Checkbox visibility */
+.input-group input[type=checkbox]{width:auto;accent-color:var(--accent)}
+
+.control-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.control-row input[type=number]{width:120px}
+.control-row select{min-width:190px}
+
+.qr-preview{display:flex;align-items:center;justify-content:center;min-height:340px;border:1px dashed #334155;border-radius:16px;background:transparent}
+.preview-placeholder{color:var(--muted);text-align:center}
+
+.preview-actions,.queue-actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
+
+.btn{background:var(--accent);color:#fff;border:1px solid transparent;border-radius:10px;padding:12px 16px;cursor:pointer;font-weight:700;letter-spacing:.2px;transition:transform .12s ease, box-shadow .12s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(99,102,241,.25)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.btn-danger{background:var(--danger)}
+.btn.btn-success{background:var(--success)}
+
+.queue-container{display:flex;flex-direction:column;gap:10px}
+.queue-empty{color:var(--muted);text-align:center;padding:16px;border:1px dashed #334155;border-radius:12px}
+.queue-item{display:flex;align-items:center;justify-content:space-between;background:var(--input);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.queue-item-info{display:flex;flex-direction:column}
+.queue-item-title{font-weight:800;letter-spacing:.3px}
+.queue-item-details{color:var(--muted);font-size:.92rem}
+
+/* Light overrides for surfaces for seamless scroll */
+:root.light body{background:#f6f8fb}
+:root.light .left-panel,:root.light .right-panel,:root.light .header{background:#ffffff}
+:root.light .qr-preview{border-color:#e5e7eb;background:#f8fafc}
+:root.light .type-btn{background:#fff}
+:root.light .input-group input,:root.light .input-group textarea,:root.light .control-group input,:root.light .control-group select,:root.light .control-group textarea{background:#fff}
+:root.light .input-group input:focus,:root.light .input-group textarea:focus,:root.light .control-group input:focus,:root.light .control-group select:focus,:root.light .control-group textarea:focus{border-color:#94a3b8}
+:root.light .queue-empty{border-color:#e5e7eb}
+:root.light .queue-item{background:#fff}
+
+/* Theme toggle */
+.theme-toggle input{appearance:none;width:44px;height:24px;border-radius:999px;background:#334155;position:relative;outline:none;border:1px solid var(--border);transition:background .15s}
+.theme-toggle input:after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:999px;background:#fff;transition:left .15s}
+.theme-toggle input:checked{background:#e5e7eb}
+.theme-toggle input:checked:after{left:22px}
+.theme-toggle span{color:var(--muted);font-weight:700}
+
+/* Color inputs */
+.control-group input[type=color]{-webkit-appearance:none;border:none;width:48px;height:36px;padding:0;border-radius:8px;background:transparent}
+.control-group input[type=color]::-webkit-color-swatch-wrapper{padding:0;border-radius:8px}
+.control-group input[type=color]::-webkit-color-swatch{border:1px solid var(--border);border-radius:8px}
+.control-group input[type=color]::-moz-color-swatch{border:1px solid var(--border);border-radius:8px}
+
+/* Customization grid */
+.customization-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.customization-grid .control-group{margin-bottom:0}
+@media(max-width:720px){.customization-grid{grid-template-columns:1fr}}
+
+/* Reduce panel spacing */
+.panel-section{padding-bottom:12px;margin-bottom:12px}
+
+/* Compact controls */
+.compact-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.compact-row .control-group{margin-bottom:0}
+.compact-inline{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.compact-inline select{min-width:180px;max-width:220px}
+.compact-inline input[type=number]{width:110px}
+.compact-inline input[type=color]{width:40px;height:32px}
+@media(max-width:800px){.compact-row{grid-template-columns:1fr}}
+
+/* Compact controls adjustments */
+.compact-inline .label{color:var(--muted);font-size:.9rem;font-weight:600}
+.compact-inline.gapped>*{margin-right:10px}
+.compact-inline.gapped>*:last-child{margin-right:0}
+
+/* No-wrap variant for compact inline rows */
+/* reverted: allow wrapping based on viewport */
+/* .compact-inline.nowrap{flex-wrap:nowrap} */
+
+/* Revert margin inputs width to previous value */
+.compact-inline .margin-input{width:70px}
+@media(max-width:800px){.compact-inline .margin-input{width:90px}}
+
+/* Tighten label spacing for compact areas */
+.compact-inline .label{font-size:.85rem}
+.compact-inline.gapped>*{margin-right:8px}
+.compact-inline.gapped>*:last-child{margin-right:0}
+
+/* Color controls spacing */
+.colors-inline{display:flex;align-items:center;gap:22px}
+.colors-inline .color-group{display:flex;align-items:center;gap:8px}
+
+/* Align selects */
+.compact-inline select{margin-left:0}
+
+@media(max-width:980px){.main-content{grid-template-columns:1fr}}
+
+/* Theme-specific border shades */
+:root{--border:#d0d7e2}
+:root.light{--border:#c9d1e0}
+:root:not(.light){--border:#2b3a50}
+
+/* Inputs hover animation */
+.input-group input,.input-group textarea,.control-group input,.control-group select,.control-group textarea{
+  transition:border-color .15s ease, box-shadow .15s ease, background-color .15s ease
+}
+.input-group input:hover,.input-group textarea:hover,.control-group input:hover,.control-group select:hover,.control-group textarea:hover{
+  border-color:#7588aa;box-shadow:0 0 0 3px rgba(99,102,241,.12)
+}
+:root.light .input-group input:hover,:root.light .input-group textarea:hover,:root.light .control-group input:hover,:root.light .control-group select:hover,:root.light .control-group textarea:hover{
+  border-color:#9aa9c5;box-shadow:0 0 0 3px rgba(79,70,229,.12)
+}
